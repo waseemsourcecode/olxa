@@ -236,7 +236,8 @@ class activate extends State<TabsScreen> with TickerProviderStateMixin {
             iconData: _lastSelected == 3 ? Icons.person : Icons.person_outline,
             text: 'ACCOUNT',
           ),
-        ], backgroundColor: null!,
+        ],
+        backgroundColor: Colors.transparent,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(

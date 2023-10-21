@@ -18,10 +18,10 @@ import '../models/state.dart';
 class APIHelper extends ChangeNotifier {
   static const DETAIL_ACTIVITY_PARCELABLE = "DETAIL_ACTIVITY_PARCELABLE";
   static const BUNDLE = "bundle";
-  // static const BASE_URL = "classified.canders.in"; // Put Your Base Url here.
+  static const BASE_URL = "classified.canders.in"; // Put Your Base Url here.
 
-  static const BASE_URL =
-      "olxa.srkwebappinnovations.com"; // Put Your Base Url here.
+  // static const BASE_URL =
+  //     "olxa.srkwebappinnovations.com"; // Put Your Base Url here.
 
   static const REGISTER_URL = "register";
   static const LOGIN_URL = "login";

@@ -386,12 +386,13 @@ class _HomeTabState extends State<HomeTab> {
                           ),
                           Flexible(
                             child: Container(
-                              child: Text(langPack['What are you looking for?']!,
-                                  textDirection: CurrentUser.textDirection,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                    color: Colors.grey[600],
-                                  )),
+                              child:
+                                  Text(langPack['What are you looking for?']!,
+                                      textDirection: CurrentUser.textDirection,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                        color: Colors.grey[600],
+                                      )),
                             ),
                           ),
                         ],
@@ -524,9 +525,12 @@ class _HomeTabState extends State<HomeTab> {
                                   crossAxisSpacing: 10,
                                 ),
                                 itemCount: 9,
-                                itemBuilder: (ctx, i) => CategoryTile(
-                                  category: snapshot.data![i],
-                                ),
+                                itemBuilder: (ctx, i) =>
+                                    snapshot.data![i].name.isEmpty
+                                        ? SizedBox()
+                                        : CategoryTile(
+                                            category: snapshot.data![i],
+                                          ),
                               ),
                             );
                         }
@@ -619,7 +623,8 @@ class _HomeTabState extends State<HomeTab> {
                                           price: snapshot.data[i].price,
                                           location: getProductLocation(
                                               snapshot.data[i]),
-                                          currency: snapshot.data[i].currency, status: '',
+                                          currency: snapshot.data[i].currency,
+                                          status: '',
                                         ),
                                         SizedBox(width: 20),
                                       ],
@@ -659,7 +664,8 @@ class _HomeTabState extends State<HomeTab> {
                                       price: featuredProducts[i].price,
                                       location: getProductLocation(
                                           featuredProducts[i]),
-                                      currency: featuredProducts[i].currency, status: '',
+                                      currency: featuredProducts[i].currency,
+                                      status: '',
                                     ),
                                     SizedBox(width: 20),
                                   ],
@@ -677,7 +683,7 @@ class _HomeTabState extends State<HomeTab> {
                     // height: 50,
                     ),
                 Text(
-                  langPack['Top Picks in Classifieds']!,
+                  langPack['Top Picks in Olxagri']!,
                   textDirection: CurrentUser.textDirection,
                   style: TextStyle(
                     fontSize: 18,
@@ -735,7 +741,8 @@ class _HomeTabState extends State<HomeTab> {
                                         .isUrgent,
                                 currency:
                                     latestProducts[i * productLimit + index]
-                                        .currency, status: '',
+                                        .currency,
+                                status: '',
                               );
 
                               // return Container();
@@ -818,7 +825,8 @@ class _HomeTabState extends State<HomeTab> {
                                               .isUrgent,
                                           currency: snapshot
                                               .data[i * productLimit + index]
-                                              .currency, status: '',
+                                              .currency,
+                                          status: '',
                                         );
                                       },
                                     );

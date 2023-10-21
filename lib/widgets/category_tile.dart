@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 import '../models/category.dart';
@@ -29,6 +31,10 @@ class CategoryTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    log(category.picture);
+    log(category.id);
+    log(category.name);
+    log('category.');
     switch (category.id) {
       case '4':
         catIcon = catImageBuilder('assets/images/house.png');
@@ -69,42 +75,44 @@ class CategoryTile extends StatelessWidget {
       default:
         catIcon = catImageBuilder('assets/images/category.png');
     }
-    return GestureDetector(
-      onTap: () {
-        Navigator.of(context).pushNamed(
-          SubCategoriesScreen.routeName,
-          arguments: {
-            'chosenCat': category,
-            'newAd': false,
-            'editAd': false,
-          },
-        );
-      },
-      child: AspectRatio(
-        aspectRatio: 1,
-        child: Container(
-          child: Column(
-            children: [
-              // FractionallySizedBox(
-              //   widthFactor: 0.6,
-              //   heightFactor: 0.6,
-              //   child: catIcon,
-              // ),
-              Flexible(flex: 4, child: catIcon!),
-              Flexible(
-                flex: 3,
-                child: Text(
-                  category.name.toUpperCase(),
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.grey[800],
-                  ),
+    return category == null
+        ? SizedBox()
+        : GestureDetector(
+            onTap: () {
+              Navigator.of(context).pushNamed(
+                SubCategoriesScreen.routeName,
+                arguments: {
+                  'chosenCat': category,
+                  'newAd': false,
+                  'editAd': false,
+                },
+              );
+            },
+            child: AspectRatio(
+              aspectRatio: 1,
+              child: Container(
+                child: Column(
+                  children: [
+                    // FractionallySizedBox(
+                    //   widthFactor: 0.6,
+                    //   heightFactor: 0.6,
+                    //   child: catIcon,
+                    // ),
+                    Flexible(flex: 4, child: catIcon!),
+                    Flexible(
+                      flex: 3,
+                      child: Text(
+                        category.name.toUpperCase(),
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Colors.grey[800],
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-            ],
-          ),
-        ),
-      ),
-    );
+            ),
+          );
   }
 }

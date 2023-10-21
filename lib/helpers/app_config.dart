@@ -116,7 +116,8 @@ class AppConfig {
     googleBannerOn = decodedData['google_banner'];
     googleInterstitialOn = decodedData['google_interstitial'];
 
-    appName = decodedData['app_name'];
+    appName = 'olxagri';
+    //decodedData['app_name'];
     appVersion = decodedData['app_version'];
     defaultCountry = decodedData['default_country'];
     defaultLangCode = decodedData['default_lang_code'];
@@ -135,7 +136,7 @@ class AppConfig {
     adAppId = decodedData['ad_appid'];
     fbNative = decodedData['fb_native'];
     adIosNative = decodedData['ad_ios_native'];
-    adCountryName = decodedData['ad_country_name'];
+    adCountryName = decodedData['ad_country_name'] ?? '';
     // isPremium = false;
     for (int i = 0; i < decodedData['languages'].length; i++) {
       languages.add(Language(

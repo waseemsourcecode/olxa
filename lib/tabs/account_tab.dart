@@ -397,7 +397,8 @@ class _AccountTabState extends State<AccountTab> {
                         ? Icons.arrow_left
                         : Icons.arrow_right,
                     color: Colors.grey[800],
-                  ), subtitle: '',
+                  ),
+                  subtitle: '',
                 ),
               // if (CurrentUser.isLoggedIn)
               //   AccountListTile(
@@ -425,7 +426,8 @@ class _AccountTabState extends State<AccountTab> {
                         ? Icons.arrow_left
                         : Icons.arrow_right,
                     color: Colors.grey[800],
-                  ), subtitle: '',
+                  ),
+                  subtitle: '',
                 ),
               if (CurrentUser.isLoggedIn)
                 AccountListTile(
@@ -441,7 +443,8 @@ class _AccountTabState extends State<AccountTab> {
                         ? Icons.arrow_left
                         : Icons.arrow_right,
                     color: Colors.grey[800],
-                  ), subtitle: '',
+                  ),
+                  subtitle: '',
                 ),
               AccountListTile(
                 title: langPack['Choose your language']!,
@@ -461,65 +464,65 @@ class _AccountTabState extends State<AccountTab> {
                   color: Colors.grey[800],
                 ),
               ),
-              AccountListTile(
-                title: 'Rate Us',
-                 subtitle: 'Help center and legal terms',
-                icon: Icons.favorite_outline,
-                onTapFunc: () async {
-                  await LaunchReview.launch();
-                },
-                 trailing: Icon(
-                  Icons.arrow_right,
-                  color: Colors.grey[800],
-                 ),
-              ),
-              AccountListTile(
-                title: 'Share',
-                 subtitle: 'Help center and legal terms',
-                icon: Icons.share,
-                onTapFunc: () async {
-                  await Share.share(
-                      'Download this Amazing application: https://play.google.com/store/apps/details?id=com.cander.markclassified'); // Put Your App Url here.
-                },
-                trailing: Icon(
-                  Icons.arrow_right,
-                  color: Colors.grey[800],
-                ),
-              ),
-              AccountListTile(
-                title: langPack['Support']!,
-                // subtitle: 'Help center and legal terms',
-                icon: Icons.phone,
-                onTapFunc: () async {
-                  final Uri _emailLaunchUri = Uri(
-                    scheme: 'mailto',
-                    path:
-                        'support@canders.in', // Put your Support Email Here
-                    queryParameters: {'subject': 'Support'},
-                  );
-                  await urlLauncher.canLaunch(_emailLaunchUri.toString())
-                      ? await urlLauncher.launch(_emailLaunchUri.toString())
-                      : throw 'Could not launch ${_emailLaunchUri.toString()}';
-                },
-                // trailing: Icon(
-                //   Icons.arrow_right,
-                //   color: Colors.grey[800],
-                // ),
-              ),
-              AccountListTile(
-                title: langPack['Terms & Condition']!,
-                // subtitle: 'Help center and legal terms',
-                icon: Icons.check_box_outlined,
-                onTapFunc: () async {
-                  await urlLauncher.canLaunch((AppConfig.termsPageLink)!)
-                      ? await urlLauncher.launch((AppConfig.termsPageLink)!)
-                      : throw 'Could not launch ${AppConfig.termsPageLink}';
-                },
-                // trailing: Icon(
-                //   Icons.arrow_right,
-                //   color: Colors.grey[800],
-                // ),
-              ),
+              // AccountListTile(
+              //   title: 'Rate Us',
+              //    subtitle: 'Help center and legal terms',
+              //   icon: Icons.favorite_outline,
+              //   onTapFunc: () async {
+              //     await LaunchReview.launch();
+              //   },
+              //    trailing: Icon(
+              //     Icons.arrow_right,
+              //     color: Colors.grey[800],
+              //    ),
+              // ),
+              // AccountListTile(
+              //   title: 'Share',
+              //    subtitle: 'Help center and legal terms',
+              //   icon: Icons.share,
+              //   onTapFunc: () async {
+              //     await Share.share(
+              //         'Download this Amazing application: https://play.google.com/store/apps/details?id=com.cander.markclassified'); // Put Your App Url here.
+              //   },
+              //   trailing: Icon(
+              //     Icons.arrow_right,
+              //     color: Colors.grey[800],
+              //   ),
+              // ),
+              // AccountListTile(
+              //   title: langPack['Support']!,
+              //   // subtitle: 'Help center and legal terms',
+              //   icon: Icons.phone,
+              //   onTapFunc: () async {
+              //     final Uri _emailLaunchUri = Uri(
+              //       scheme: 'mailto',
+              //       path:
+              //           'support@canders.in', // Put your Support Email Here
+              //       queryParameters: {'subject': 'Support'},
+              //     );
+              //     await urlLauncher.canLaunch(_emailLaunchUri.toString())
+              //         ? await urlLauncher.launch(_emailLaunchUri.toString())
+              //         : throw 'Could not launch ${_emailLaunchUri.toString()}';
+              //   },
+              //   // trailing: Icon(
+              //   //   Icons.arrow_right,
+              //   //   color: Colors.grey[800],
+              //   // ),
+              // ),
+              // AccountListTile(
+              //   title: langPack['Terms & Condition']!,
+              //   // subtitle: 'Help center and legal terms',
+              //   icon: Icons.check_box_outlined,
+              //   onTapFunc: () async {
+              //     await urlLauncher.canLaunch((AppConfig.termsPageLink)!)
+              //         ? await urlLauncher.launch((AppConfig.termsPageLink)!)
+              //         : throw 'Could not launch ${AppConfig.termsPageLink}';
+              //   },
+              //   // trailing: Icon(
+              //   //   Icons.arrow_right,
+              //   //   color: Colors.grey[800],
+              //   // ),
+              // ),
               if (CurrentUser.isLoggedIn)
                 AccountListTile(
                   title: langPack['Log out']!,

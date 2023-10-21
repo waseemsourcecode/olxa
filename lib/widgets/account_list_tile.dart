@@ -4,18 +4,18 @@ import '../helpers/current_user.dart';
 
 class AccountListTile extends StatelessWidget {
   final String title;
-   final String? subtitle;
+  final String? subtitle;
   final IconData? icon;
-   final Function onTapFunc;
+  final dynamic onTapFunc;
   final Widget? trailing;
   final bool enableDivider;
 
   AccountListTile(
       {required this.title,
-       this.subtitle,
-       this.icon,
-       required this.onTapFunc,
-       this.trailing,
+      this.subtitle,
+      this.icon,
+      required this.onTapFunc,
+      this.trailing,
       this.enableDivider = true});
 
   @override
@@ -52,7 +52,7 @@ class AccountListTile extends StatelessWidget {
                   textAlign: TextAlign.start,
                 )
               : null,
-          onTap: onTapFunc(),
+          onTap: onTapFunc,
         ),
         if (enableDivider)
           Divider(

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:Mark_Classified/screens/color_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -31,7 +33,7 @@ class _AuthScreenState extends State<AuthScreen> {
   // final FirebaseAuth _auth = FirebaseAuth.instance;
   // final GoogleSignIn googleSignIn = GoogleSignIn();
   bool _isLoading = false;
-   late bool _isLogin;
+  late bool _isLogin;
   bool firstLoad = true;
   bool isLoggedIn = false;
 
@@ -313,7 +315,7 @@ class _AuthScreenState extends State<AuthScreen> {
       setState(() {
         _isLoading = false;
       });
-    }  catch (error) {
+    } catch (error) {
       if (error != null) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -350,10 +352,12 @@ class _AuthScreenState extends State<AuthScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Image.asset(
-                "assets/images/logocander_dev.png",
-                height: maxHeight * 0.15,
-              ),
+              Builder(builder: (context) {
+                return Image.asset(
+                  "assets/images/classified.png",
+                  height: maxHeight * 0.15,
+                );
+              }),
               Container(
                 child: Text(
                   "${langPack['Welcome']},",
@@ -565,7 +569,9 @@ class _AuthScreenState extends State<AuthScreen> {
                         ),
                         child: Center(
                           child: Text(
-                            _isLogin ? langPack['LOG IN']! : langPack['SIGN UP']!,
+                            _isLogin
+                                ? langPack['LOG IN']!
+                                : langPack['SIGN UP']!,
                             textDirection: CurrentUser.textDirection,
                             style: TextStyle(color: Colors.white),
                           ),
@@ -700,35 +706,61 @@ class _AuthScreenState extends State<AuthScreen> {
                     SizedBox(
                       height: 20,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          _isLogin!
-                              ? 'Don\'t have an account ?'
-                              : 'Already have an account ?',
-                          style: TextStyle(fontSize: 16),
-                        ),
-                        SizedBox(
-                          width: 20,
-                        ),
-                        InkWell(
-                          onTap: () {
-                            setState(() {
-                              _isLogin = _isLogin!;
-                            });
-                          },
-                          child: Text(
-                            _isLogin ? langPack['SIGN UP']! : langPack['LOG IN']!,
-                            textDirection: CurrentUser.textDirection,
-                            style: TextStyle(
-                                color: HexColor(),
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                                decoration: TextDecoration.underline),
+                    InkWell(
+                      onTap: () {
+                        setState(() {
+                          _isLogin = _isLogin!;
+                        });
+                        log('printxxx');
+                        _isLogin
+                            ? Navigator.of(context).pushNamed(
+                                AuthScreen.routeName,
+                                arguments: false)
+                            : Navigator.of(context).pushNamed(
+                                AuthScreen.routeName,
+                                arguments: true);
+                        ;
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            _isLogin
+                                ? 'Don\'t have an account ?'
+                                : 'Already have an account ?',
+                            style: TextStyle(fontSize: 16),
                           ),
-                        )
-                      ],
+                          SizedBox(
+                            width: 20,
+                          ),
+                          InkWell(
+                            onTap: () {
+                              setState(() {
+                                _isLogin = _isLogin;
+                              });
+
+                              _isLogin
+                                  ? Navigator.of(context).pushNamed(
+                                      AuthScreen.routeName,
+                                      arguments: false)
+                                  : Navigator.of(context).pushNamed(
+                                      AuthScreen.routeName,
+                                      arguments: true);
+                            },
+                            child: Text(
+                              _isLogin
+                                  ? langPack['SIGN UP']!
+                                  : langPack['LOG IN']!,
+                              textDirection: CurrentUser.textDirection,
+                              style: TextStyle(
+                                  color: HexColor(),
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                  decoration: TextDecoration.underline),
+                            ),
+                          )
+                        ],
+                      ),
                     )
                     // _signInButton(),
                     // _facebookSignInButton(),
