@@ -20,16 +20,22 @@ class StartScreen extends StatelessWidget {
   late Map<String, String> langPack;
 
   Future signInWithGoogle() async {
-    // Trigger the authentication flow
-    final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
+    try {
+      // Trigger the authentication flow
+      final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
+      print("********************GOOGLE AUTH******************");
+      // Obtain the auth details from the request
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser!.authentication;
 
-    // Obtain the auth details from the request
-    final GoogleSignInAuthentication googleAuth =
-        await googleUser!.authentication;
-    print(googleUser);
-    print(googleUser.displayName);
-    print(googleUser.email);
-    return googleUser;
+      print(googleUser);
+      print(googleUser.displayName);
+      print(googleUser.email);
+      return googleUser;
+    } catch (e) {
+      print("Error while returning $e");
+      return null;
+    }
 
     // // Create a new credential
     // final GoogleAuthCredential credential = GoogleAuthProvider.credential(
@@ -180,6 +186,7 @@ class StartScreen extends StatelessWidget {
             onPressed: () async {
               print("start Login gmail");
               GoogleSignInAccount response = await signInWithGoogle();
+              print("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
               print(response);
 
               await Provider.of<APIHelper>(context, listen: false)

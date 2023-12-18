@@ -273,7 +273,8 @@ class _LocationSearchScreenFirstState extends State<LocationSearchScreenFirst> {
                           physics: ScrollPhysics(),
                           itemCount: snapshot.data!.length,
                           itemBuilder: (content, i) {
-                            print('Fetched State ::::>>>> ${snapshot.data![i]}');
+                            print(
+                                'Fetched State ::::>>>> ${snapshot.data![i]}');
                             if (snapshot.data![i].name
                                 .toLowerCase()
                                 .contains(_keywordForSearch.toLowerCase())) {

@@ -1,5 +1,6 @@
 import 'package:Mark_Classified/screens/color_helper.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 
 import './sub_categories_screen.dart';
@@ -15,7 +16,7 @@ class AllCategoriesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final langPack = Provider.of<Languages>(context).selected;
-    final  pushedArguments = ModalRoute.of(context)!.settings.arguments;
+    final pushedArguments = ModalRoute.of(context)!.settings.arguments;
 
     List<Category> allCategories =
         Provider.of<Products>(context).categoriesItems;
@@ -89,14 +90,21 @@ class AllCategoriesScreen extends StatelessWidget {
                     ? Icon(Icons.arrow_right, color: Colors.grey[800])
                     : null,
                 onTap: () {
-                  Navigator.of(context).pushNamed(
-                    SubCategoriesScreen.routeName,
-                    arguments: {
-                      'newAd': pushedArguments!,
-                      'editAd': pushedArguments!,
-                      'chosenCat': allCategories[i]
-                    },
-                  );
+                  final data = allCategories[i];
+                  print(pushedArguments);
+                  print(data);
+                  if (pushedArguments != null) {
+                    Navigator.of(context).pushNamed(
+                      SubCategoriesScreen.routeName,
+                      arguments: {
+                        'newAd': pushedArguments,
+                        'editAd': pushedArguments,
+                        'chosenCat': data
+                      },
+                    );
+                  } else {
+                    print("Error ");
+                  }
                 },
               ),
               Divider(

@@ -105,7 +105,7 @@ void main() async {
       'high_importance_channel', // id
       'High Importance Notifications', // title
       description:
-          'This channel is used for important notifications.', // description
+      'This channel is used for important notifications.', // description
       importance: Importance.high,
     );
 
@@ -117,7 +117,7 @@ void main() async {
     /// default FCM channel to enable heads up notifications.
     await flutterLocalNotificationsPlugin!
         .resolvePlatformSpecificImplementation<
-            AndroidFlutterLocalNotificationsPlugin>()
+        AndroidFlutterLocalNotificationsPlugin>()
         ?.createNotificationChannel(channel!);
 
     /// Update the iOS foreground notification presentation options to allow
@@ -226,14 +226,14 @@ class MyApp extends StatelessWidget {
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10.0),
                 borderSide: BorderSide(color: HexColor()
-                    //Colors.grey[800],
-                    ),
+                  //Colors.grey[800],
+                ),
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10.0),
                 borderSide: BorderSide(color: HexColor()
-                    //Colors.grey[800],
-                    ),
+                  //Colors.grey[800],
+                ),
               ),
             ),
             // This is the theme of your application.
@@ -268,9 +268,7 @@ class MyApp extends StatelessWidget {
             SubCategoriesScreen.routeName: (ctx) => SubCategoriesScreen(),
             StartScreen.routeName: (ctx) => StartScreen(),
             AuthScreen.routeName: (ctx) => AuthScreen(),
-            TabsScreen.routeName: (ctx) => TabsScreen(
-                  title: 'TabsScreen',
-                ),
+            TabsScreen.routeName: (ctx) => TabsScreen(title: 'TabsScreen',),
             NewAdScreen.routeName: (ctx) => NewAdScreen(),
             MembershipPlanScreen.routeName: (ctx) => MembershipPlanScreen(),
             SearchAdScreen.routeName: (ctx) => SearchAdScreen(),

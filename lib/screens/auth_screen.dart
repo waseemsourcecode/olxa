@@ -225,6 +225,7 @@ class _AuthScreenState extends State<AuthScreen> {
 
     //File image,
   ) async {
+    print("Hello");
     final apiHelper = Provider.of<APIHelper>(ctx, listen: false);
     //UserCredential userCredential;
 
@@ -298,6 +299,12 @@ class _AuthScreenState extends State<AuthScreen> {
         //  context, TabsScreen.routeName, (Route<dynamic> route) => false);
         Navigator.of(context)
             .pushReplacementNamed(AuthScreen.routeName, arguments: true);
+        ScaffoldMessenger.of(ctx).showSnackBar(
+          SnackBar(
+            content: Text("Testing login"),
+            backgroundColor: Theme.of(ctx).colorScheme.onPrimary,
+          ),
+        );
       }
     } on PlatformException catch (error) {
       var message = 'An error occured, please check your credentials';
@@ -324,6 +331,7 @@ class _AuthScreenState extends State<AuthScreen> {
           ),
         );
       } else {
+        print("11111");
         print(error);
       }
       setState(() {
@@ -345,194 +353,196 @@ class _AuthScreenState extends State<AuthScreen> {
         ),
         elevation: 0,
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Builder(builder: (context) {
-                return Image.asset(
-                  "assets/images/classified.png",
-                  height: maxHeight * 0.15,
-                );
-              }),
-              Container(
-                child: Text(
-                  "${langPack['Welcome']},",
-                  textDirection: CurrentUser.textDirection,
-                  style: TextStyle(
-                      color: HexColor(),
-                      fontSize: 48,
-                      fontWeight: FontWeight.bold),
-                ),
-              ),
-              SizedBox(height: 5),
-              Container(
-                child: Text(
-                  "${langPack['Welcome log title']}.",
-                  textDirection: CurrentUser.textDirection,
-                  style: TextStyle(
-                    color: HexColor(),
-                    fontSize: 18,
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Form(
-                key: _formKey,
+      body: (_isLoading)
+          ? Center(child: CircularProgressIndicator())
+          : SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(20),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    if (!_isLogin!)
-                      TextFormField(
-                        cursorColor: Colors.grey[800],
-                        // The key allows us to prevent
-                        // the completion of other TextFormField
-                        // when we switch the _isLogin
-                        key: ValueKey('name'),
-                        autocorrect: true,
-                        textCapitalization: TextCapitalization.words,
-                        validator: (value) {
-                          if (value!.isEmpty || value.length < 6) {
-                            return 'Username must be at least 3 characters long';
-                          } else {
-                            return null;
-                          }
-                        },
-                        onSaved: (value) {
-                          _name = value!;
-                        },
-
+                    Builder(builder: (context) {
+                      return Image.asset(
+                        "assets/images/classified.png",
+                        height: maxHeight * 0.15,
+                      );
+                    }),
+                    Container(
+                      child: Text(
+                        "${langPack['Welcome']},",
                         textDirection: CurrentUser.textDirection,
-                        decoration: InputDecoration(
-                          suffixIcon: Icon(
-                            Icons.account_circle_rounded,
-                            size: 20,
-                          ),
-                          labelText: langPack['First name'],
-                          hintTextDirection: CurrentUser.textDirection,
-                        ),
-                      ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    if (!_isLogin!)
-                      TextFormField(
-                        cursorColor: Colors.grey[800],
-                        // The key allows us to prevent
-                        // the completion of other TextFormField
-                        // when we switch the _isLogin
-                        key: ValueKey('username'),
-                        autocorrect: true,
-                        textCapitalization: TextCapitalization.words,
-                        textDirection: CurrentUser.textDirection,
-                        validator: (value) {
-                          if (value!.isEmpty || value.length < 6) {
-                            return langPack[
-                                'Please enter minimum 6 characters of Username'];
-                          } else {
-                            return null;
-                          }
-                        },
-                        onSaved: (value) {
-                          _userName = value!;
-                        },
-                        decoration: InputDecoration(
-                          suffixIcon: Icon(
-                            Icons.account_circle_rounded,
-                            size: 20,
-                          ),
-                          labelText: langPack['Username'],
-                          hintTextDirection: CurrentUser.textDirection,
-                        ),
-                      ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    TextFormField(
-                      // The key allows us to prevent
-                      // the completion of other TextFormField
-                      // when we switch the _isLogin
-                      key: ValueKey('email'),
-                      cursorColor: Colors.grey[800],
-                      autocorrect: false,
-                      textCapitalization: TextCapitalization.none,
-                      enableSuggestions: false,
-                      keyboardType: TextInputType.emailAddress,
-
-                      style: TextStyle(
-                        color: Colors.grey[800],
-                      ),
-
-                      textDirection: CurrentUser.textDirection,
-                      decoration: InputDecoration(
-                        labelText: langPack['Email/Username'],
-                        suffixIcon: Icon(
-                          Icons.account_circle_rounded,
-                          size: 20,
-                        ),
-                        hintTextDirection: CurrentUser.textDirection,
-                        fillColor: Colors.grey[800],
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                          borderSide: BorderSide(
+                        style: TextStyle(
                             color: HexColor(),
+                            fontSize: 48,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    SizedBox(height: 5),
+                    Container(
+                      child: Text(
+                        "${langPack['Welcome log title']}.",
+                        textDirection: CurrentUser.textDirection,
+                        style: TextStyle(
+                          color: HexColor(),
+                          fontSize: 18,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Form(
+                      key: _formKey,
+                      child: Column(
+                        children: [
+                          if (!_isLogin!)
+                            TextFormField(
+                              cursorColor: Colors.grey[800],
+                              // The key allows us to prevent
+                              // the completion of other TextFormField
+                              // when we switch the _isLogin
+                              key: ValueKey('name'),
+                              autocorrect: true,
+                              textCapitalization: TextCapitalization.words,
+                              validator: (value) {
+                                if (value!.isEmpty || value.length < 6) {
+                                  return 'Username must be at least 3 characters long';
+                                } else {
+                                  return null;
+                                }
+                              },
+                              onSaved: (value) {
+                                _name = value!;
+                              },
+
+                              textDirection: CurrentUser.textDirection,
+                              decoration: InputDecoration(
+                                suffixIcon: Icon(
+                                  Icons.account_circle_rounded,
+                                  size: 20,
+                                ),
+                                labelText: langPack['First name'],
+                                hintTextDirection: CurrentUser.textDirection,
+                              ),
+                            ),
+                          SizedBox(
+                            height: 15,
                           ),
-                        ),
-                      ),
-                      validator: (value) {
-                        // if (value.isEmpty || !value.contains('@')) {
-                        //   return 'Please enter a valid email address';
-                        // } else {
-                        //   return null;
-                        // }
-                        return null;
-                      },
-                      onSaved: (value) {
-                        _userEmail = value!;
-                      },
-                    ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    TextFormField(
-                      cursorColor: Colors.grey[800],
+                          if (!_isLogin!)
+                            TextFormField(
+                              cursorColor: Colors.grey[800],
+                              // The key allows us to prevent
+                              // the completion of other TextFormField
+                              // when we switch the _isLogin
+                              key: ValueKey('username'),
+                              autocorrect: true,
+                              textCapitalization: TextCapitalization.words,
+                              textDirection: CurrentUser.textDirection,
+                              validator: (value) {
+                                if (value!.isEmpty || value.length < 6) {
+                                  return langPack[
+                                      'Please enter minimum 6 characters of Username'];
+                                } else {
+                                  return null;
+                                }
+                              },
+                              onSaved: (value) {
+                                _userName = value!;
+                              },
+                              decoration: InputDecoration(
+                                suffixIcon: Icon(
+                                  Icons.account_circle_rounded,
+                                  size: 20,
+                                ),
+                                labelText: langPack['Username'],
+                                hintTextDirection: CurrentUser.textDirection,
+                              ),
+                            ),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          TextFormField(
+                            // The key allows us to prevent
+                            // the completion of other TextFormField
+                            // when we switch the _isLogin
+                            key: ValueKey('email'),
+                            cursorColor: Colors.grey[800],
+                            autocorrect: false,
+                            textCapitalization: TextCapitalization.none,
+                            enableSuggestions: false,
+                            keyboardType: TextInputType.emailAddress,
 
-                      // The key allows us to prevent
-                      // the completion of other TextFormField
-                      // when we switch the _isLogin
-                      key: ValueKey('password'),
-                      validator: (value) {
-                        // if (value.isEmpty || value.length < 7) {
-                        //   return 'Password must be at least 7 characters long';
-                        // } else {
-                        //   return null;
-                        // }
-                        return null;
-                      },
-                      onSaved: (value) {
-                        _userPassword = value!;
-                      },
+                            style: TextStyle(
+                              color: Colors.grey[800],
+                            ),
 
-                      textDirection: CurrentUser.textDirection,
-                      decoration: InputDecoration(
-                        suffixIcon: Icon(
-                          Icons.lock_rounded,
-                          size: 20,
-                        ),
-                        labelText: langPack['Password'],
-                        hintTextDirection: CurrentUser.textDirection,
-                      ),
-                      // Hides the password
-                      obscureText: true,
-                    ),
-                    SizedBox(
-                      height: 30,
-                    ),
-                    /*TextButton(
+                            textDirection: CurrentUser.textDirection,
+                            decoration: InputDecoration(
+                              labelText: langPack['Email/Username'],
+                              suffixIcon: Icon(
+                                Icons.account_circle_rounded,
+                                size: 20,
+                              ),
+                              hintTextDirection: CurrentUser.textDirection,
+                              fillColor: Colors.grey[800],
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                                borderSide: BorderSide(
+                                  color: HexColor(),
+                                ),
+                              ),
+                            ),
+                            validator: (value) {
+                              // if (value.isEmpty || !value.contains('@')) {
+                              //   return 'Please enter a valid email address';
+                              // } else {
+                              //   return null;
+                              // }
+                              return null;
+                            },
+                            onSaved: (value) {
+                              _userEmail = value!;
+                            },
+                          ),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          TextFormField(
+                            cursorColor: Colors.grey[800],
+
+                            // The key allows us to prevent
+                            // the completion of other TextFormField
+                            // when we switch the _isLogin
+                            key: ValueKey('password'),
+                            validator: (value) {
+                              // if (value.isEmpty || value.length < 7) {
+                              //   return 'Password must be at least 7 characters long';
+                              // } else {
+                              //   return null;
+                              // }
+                              return null;
+                            },
+                            onSaved: (value) {
+                              _userPassword = value!;
+                            },
+
+                            textDirection: CurrentUser.textDirection,
+                            decoration: InputDecoration(
+                              suffixIcon: Icon(
+                                Icons.lock_rounded,
+                                size: 20,
+                              ),
+                              labelText: langPack['Password'],
+                              hintTextDirection: CurrentUser.textDirection,
+                            ),
+                            // Hides the password
+                            obscureText: true,
+                          ),
+                          SizedBox(
+                            height: 30,
+                          ),
+                          /*TextButton(
                       // minWidth: 300,
                       // color: Colors.blue,
                       style: ButtonStyle(
@@ -554,127 +564,127 @@ class _AuthScreenState extends State<AuthScreen> {
                         _trySubmit();
                       },
                     ),*/
-                    SizedBox(
-                      height: 20,
-                    ),
-                    InkWell(
-                      onTap: () {
-                        _trySubmit();
-                      },
-                      child: Container(
-                        height: 50,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10.0),
-                          color: HexColor(),
-                        ),
-                        child: Center(
-                          child: Text(
-                            _isLogin
-                                ? langPack['LOG IN']!
-                                : langPack['SIGN UP']!,
-                            textDirection: CurrentUser.textDirection,
-                            style: TextStyle(color: Colors.white),
+                          SizedBox(
+                            height: 20,
                           ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.center,
-                    //   children: [
-                    //     Text(
-                    //       "OR",
-                    //       style: TextStyle(fontSize: 20),
-                    //     ),
-                    //   ],
-                    // ),
-                    // SizedBox(
-                    //   height: 20,
-                    // ),
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.center,
-                    //   crossAxisAlignment: CrossAxisAlignment.start,
-                    //   children: [
-                    //     (AppConfig.disableAdSocial)
-                    //         ? InkWell(
-                    //             onTap: () async {
-                    //               print("start Login gmail");
-                    //               GoogleSignInAccount response =
-                    //                   await signInWithGoogle();
-                    //               print(response);
+                          InkWell(
+                            onTap: () {
+                              _trySubmit();
+                            },
+                            child: Container(
+                              height: 50,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10.0),
+                                color: HexColor(),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  _isLogin
+                                      ? langPack['LOG IN']!
+                                      : langPack['SIGN UP']!,
+                                  textDirection: CurrentUser.textDirection,
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          // Row(
+                          //   mainAxisAlignment: MainAxisAlignment.center,
+                          //   children: [
+                          //     Text(
+                          //       "OR",
+                          //       style: TextStyle(fontSize: 20),
+                          //     ),
+                          //   ],
+                          // ),
+                          // SizedBox(
+                          //   height: 20,
+                          // ),
+                          // Row(
+                          //   mainAxisAlignment: MainAxisAlignment.center,
+                          //   crossAxisAlignment: CrossAxisAlignment.start,
+                          //   children: [
+                          //     (AppConfig.disableAdSocial)
+                          //         ? InkWell(
+                          //             onTap: () async {
+                          //               print("start Login gmail");
+                          //               GoogleSignInAccount response =
+                          //                   await signInWithGoogle();
+                          //               print(response);
 
-                    //               await Provider.of<APIHelper>(context,
-                    //                       listen: false)
-                    //                   .autoLoginUser(
-                    //                       name: response.displayName,
-                    //                       email: response.email,
-                    //                       fbLogin: true,
-                    //                       username: response.displayName
-                    //                           .split(' ')[0],
-                    //                       fbPicture: response.photoUrl,
-                    //                       password: response.id);
+                          //               await Provider.of<APIHelper>(context,
+                          //                       listen: false)
+                          //                   .autoLoginUser(
+                          //                       name: response.displayName,
+                          //                       email: response.email,
+                          //                       fbLogin: true,
+                          //                       username: response.displayName
+                          //                           .split(' ')[0],
+                          //                       fbPicture: response.photoUrl,
+                          //                       password: response.id);
 
-                    //               Phoenix.rebirth(context);
-                    //               Navigator.pushNamedAndRemoveUntil(
-                    //                   context,
-                    //                   TabsScreen.routeName,
-                    //                   (Route<dynamic> route) => false);
-                    //             },
-                    //             child: CircleAvatar(
-                    //               backgroundColor: HexColor(),
-                    //               child: Image.asset(
-                    //                 'assets/images/google_icon.png',
-                    //                 fit: BoxFit.fitHeight,
-                    //                 color: Colors.white,
-                    //                 height: 25,
-                    //               ),
-                    //             ),
-                    //           )
-                    //         : Container(),
-                    //     SizedBox(
-                    //       width: 20,
-                    //     ),
-                    //     (AppConfig.disableFbSocial)
-                    //         ? InkWell(
-                    //             onTap: () async {
-                    //               final userData =
-                    //                   await initiateFacebookLogin();
-                    //               print(userData['email']);
-                    //               print(userData['id']);
-                    //               await Provider.of<APIHelper>(context,
-                    //                       listen: false)
-                    //                   .autoLoginUser(
-                    //                 name: userData['name'],
-                    //                 email: userData['email'],
-                    //                 fbLogin: true,
-                    //                 username: userData['id'].toString(),
-                    //                 password: userData['id'].toString(),
-                    //                 fbPicture: userData['picture']['data']
-                    //                     ['url'],
-                    //               );
+                          //               Phoenix.rebirth(context);
+                          //               Navigator.pushNamedAndRemoveUntil(
+                          //                   context,
+                          //                   TabsScreen.routeName,
+                          //                   (Route<dynamic> route) => false);
+                          //             },
+                          //             child: CircleAvatar(
+                          //               backgroundColor: HexColor(),
+                          //               child: Image.asset(
+                          //                 'assets/images/google_icon.png',
+                          //                 fit: BoxFit.fitHeight,
+                          //                 color: Colors.white,
+                          //                 height: 25,
+                          //               ),
+                          //             ),
+                          //           )
+                          //         : Container(),
+                          //     SizedBox(
+                          //       width: 20,
+                          //     ),
+                          //     (AppConfig.disableFbSocial)
+                          //         ? InkWell(
+                          //             onTap: () async {
+                          //               final userData =
+                          //                   await initiateFacebookLogin();
+                          //               print(userData['email']);
+                          //               print(userData['id']);
+                          //               await Provider.of<APIHelper>(context,
+                          //                       listen: false)
+                          //                   .autoLoginUser(
+                          //                 name: userData['name'],
+                          //                 email: userData['email'],
+                          //                 fbLogin: true,
+                          //                 username: userData['id'].toString(),
+                          //                 password: userData['id'].toString(),
+                          //                 fbPicture: userData['picture']['data']
+                          //                     ['url'],
+                          //               );
 
-                    //               Phoenix.rebirth(context);
-                    //               Navigator.pushNamedAndRemoveUntil(
-                    //                   context,
-                    //                   TabsScreen.routeName,
-                    //                   (Route<dynamic> route) => false);
-                    //             },
-                    //             child: CircleAvatar(
-                    //               backgroundColor: HexColor(),
-                    //               child: Image.asset(
-                    //                 'assets/images/fb_icon.png',
-                    //                 fit: BoxFit.fitHeight,
-                    //                 color: Colors.white,
-                    //                 height: 25,
-                    //               ),
-                    //             ),
-                    //           )
-                    //         : Container()
-                    //   ],
-                    // ),
-                    /* Row(
+                          //               Phoenix.rebirth(context);
+                          //               Navigator.pushNamedAndRemoveUntil(
+                          //                   context,
+                          //                   TabsScreen.routeName,
+                          //                   (Route<dynamic> route) => false);
+                          //             },
+                          //             child: CircleAvatar(
+                          //               backgroundColor: HexColor(),
+                          //               child: Image.asset(
+                          //                 'assets/images/fb_icon.png',
+                          //                 fit: BoxFit.fitHeight,
+                          //                 color: Colors.white,
+                          //                 height: 25,
+                          //               ),
+                          //             ),
+                          //           )
+                          //         : Container()
+                          //   ],
+                          // ),
+                          /* Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         // Text(
@@ -703,42 +713,15 @@ class _AuthScreenState extends State<AuthScreen> {
                         ),
                       ],
                     ),*/
-                    SizedBox(
-                      height: 20,
-                    ),
-                    InkWell(
-                      onTap: () {
-                        setState(() {
-                          _isLogin = _isLogin!;
-                        });
-                        log('printxxx');
-                        _isLogin
-                            ? Navigator.of(context).pushNamed(
-                                AuthScreen.routeName,
-                                arguments: false)
-                            : Navigator.of(context).pushNamed(
-                                AuthScreen.routeName,
-                                arguments: true);
-                        ;
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            _isLogin
-                                ? 'Don\'t have an account ?'
-                                : 'Already have an account ?',
-                            style: TextStyle(fontSize: 16),
-                          ),
                           SizedBox(
-                            width: 20,
+                            height: 20,
                           ),
                           InkWell(
                             onTap: () {
                               setState(() {
-                                _isLogin = _isLogin;
+                                _isLogin = _isLogin!;
                               });
-
+                              log('printxxx');
                               _isLogin
                                   ? Navigator.of(context).pushNamed(
                                       AuthScreen.routeName,
@@ -746,31 +729,58 @@ class _AuthScreenState extends State<AuthScreen> {
                                   : Navigator.of(context).pushNamed(
                                       AuthScreen.routeName,
                                       arguments: true);
+                              ;
                             },
-                            child: Text(
-                              _isLogin
-                                  ? langPack['SIGN UP']!
-                                  : langPack['LOG IN']!,
-                              textDirection: CurrentUser.textDirection,
-                              style: TextStyle(
-                                  color: HexColor(),
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16,
-                                  decoration: TextDecoration.underline),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  _isLogin
+                                      ? 'Don\'t have an account ?'
+                                      : 'Already have an account ?',
+                                  style: TextStyle(fontSize: 16),
+                                ),
+                                SizedBox(
+                                  width: 20,
+                                ),
+                                InkWell(
+                                  onTap: () {
+                                    setState(() {
+                                      _isLogin = _isLogin;
+                                    });
+
+                                    _isLogin
+                                        ? Navigator.of(context).pushNamed(
+                                            AuthScreen.routeName,
+                                            arguments: false)
+                                        : Navigator.of(context).pushNamed(
+                                            AuthScreen.routeName,
+                                            arguments: true);
+                                  },
+                                  child: Text(
+                                    _isLogin
+                                        ? langPack['SIGN UP']!
+                                        : langPack['LOG IN']!,
+                                    textDirection: CurrentUser.textDirection,
+                                    style: TextStyle(
+                                        color: HexColor(),
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16,
+                                        decoration: TextDecoration.underline),
+                                  ),
+                                )
+                              ],
                             ),
                           )
+                          // _signInButton(),
+                          // _facebookSignInButton(),
                         ],
                       ),
-                    )
-                    // _signInButton(),
-                    // _facebookSignInButton(),
+                    ),
                   ],
                 ),
               ),
-            ],
-          ),
-        ),
-      ),
+            ),
     );
   }
 }

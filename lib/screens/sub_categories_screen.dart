@@ -14,7 +14,7 @@ class SubCategoriesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final langPack = Provider.of<Languages>(context).selected;
-    Map pushedArguments = ModalRoute.of(context)!.settings.arguments as dynamic ;
+    Map pushedArguments = ModalRoute.of(context)!.settings.arguments as dynamic;
     //print(pushedArguments);
     //print(subCategories);
 
@@ -37,7 +37,7 @@ class SubCategoriesScreen extends StatelessWidget {
       ),
       body: Column(
         children: [
-          if (!pushedArguments['newAd'])
+          if (pushedArguments['newAd'] == false)
             ListTile(
               title: Text(
                 langPack['Show']! + ' ' + langPack['All']!,

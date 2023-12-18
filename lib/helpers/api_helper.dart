@@ -18,10 +18,10 @@ import '../models/state.dart';
 class APIHelper extends ChangeNotifier {
   static const DETAIL_ACTIVITY_PARCELABLE = "DETAIL_ACTIVITY_PARCELABLE";
   static const BUNDLE = "bundle";
-  static const BASE_URL = "classified.canders.in"; // Put Your Base Url here.
+  // static const BASE_URL = "olxa.srkwebappinnovations.com/index.php?action="; // Put Your Base Url here.
 
-  // static const BASE_URL =
-  //     "olxa.srkwebappinnovations.com"; // Put Your Base Url here.
+  static const BASE_URL = "classified.canders.in";
+  // "olxa.srkwebappinnovations.com"; // Put Your Base Url here.
 
   static const REGISTER_URL = "register";
   static const LOGIN_URL = "login";
@@ -76,8 +76,7 @@ class APIHelper extends ChangeNotifier {
   static var CURRENT_VERSION = "1.0";
   static const CURRENCY_IN_LEFT = "1";
   static const PREF_FILE = "cander";
-  static const SUPPORT_EMAIL =
-      "support@canders.in"; // Put your Support Email Here
+  static const SUPPORT_EMAIL = "support@chgh.in"; // Put your Support Email Here
   static const PRODUCT_LOADING_LIMIT = "16";
   static const PRODUCT_LOADING_OFFSET = 8;
   static const PRODUCT_STATUS = "active";
@@ -98,7 +97,7 @@ class APIHelper extends ChangeNotifier {
       'password': password,
       'fb_login': fbLogin ? '1' : '0',
     });
-    print("register fb : ${response.body}");
+    print("response.statusCode : ${response.statusCode}");
     if (response.statusCode == 200) {
     } else {
       throw Exception('Error while registering');
@@ -123,6 +122,7 @@ class APIHelper extends ChangeNotifier {
       'password': password,
       'fb_login': '1',
     });
+    print("response.statusCode : ${response.statusCode}");
     print("register fb : ${response.body}");
     if (response.statusCode == 200) {
       final decodedResponse = await json.decode(response.body);
